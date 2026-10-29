@@ -6,9 +6,18 @@ let socket, local, room, peers = {}, camTrack, screenTrack;
 /* ---------- auth ---------- */
 const show = id => ['auth', 'lobby', 'call'].forEach(x => $('#' + x).hidden = x !== id);
 async function authenticate(kind) {
-  const r = await fetch('/api/' + kind, { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username: $('#u').value.trim(), password: $('#p').value }) });
-  const d = await r.json();
+  $('#authErr').textContent = '';
+  let r, d;
+  try {
+    r = await fetch('/api/' + kind, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: $('#u').value.trim(), password: $('#p').value }) });
+    d = await r.json();
+  } catch (error) {
+    $('#authErr').textContent = error instanceof TypeError
+      ? 'Cannot reach the app server. Start it with `npm start` and open its URL; static hosting such as GitHub Pages cannot run login.'
+      : 'The app server returned an invalid response. Check that the login API is running.';
+    return;
+  }
   if (!r.ok) return $('#authErr').textContent = d.error;
   token = d.token; me = d.username; localStorage.setItem('km_token', token); localStorage.setItem('km_user', me);
   $('#p').value = ''; lobby();

@@ -4,9 +4,11 @@ Multi-user video calls, screen sharing, a shared whiteboard and file sharing.
 
 ## Run
     npm install
-    JWT_SECRET=$(openssl rand -hex 32) npm start     # http://localhost:3000
+    npm start
 
-Open it in two browser windows (or two devices), register two accounts, and join the same room name.
+Open http://localhost:3000, register two accounts, and join the same room name.
+
+The login API and video-call signalling run on the Node.js server. Do not open `index.html` directly or host this app as a static GitHub Pages site; those options do not run the backend and login will fail. For deployment, host the Node.js app on a server that supports persistent processes and HTTPS, and set a stable `JWT_SECRET` in its environment.
 
 ## Layout
 - `server.js`: Express + Socket.io. Auth (bcrypt + JWT), SQLite, uploads, signalling, whiteboard sync.
