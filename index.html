@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>fil
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keashur Meet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="auth" class="gate">
+  <h1>Keashur Meet</h1>
+  <p>Video calls, a shared whiteboard and file sharing in one room.</p>
+  <label>Username <input id="u" autocomplete="username"></label>
+  <label>Password <input id="p" type="password" autocomplete="current-password"></label>
+  <p id="authErr" class="err" role="alert"></p>
+  <div class="row"><button id="login">Sign in</button><button id="register" class="ghost">Create account</button></div>
+</main>
+
+<main id="lobby" class="gate" hidden>
+  <h1>Start or join a room</h1>
+  <label>Room name <input id="room" placeholder="e.g. dal-lake-sync" maxlength="40"></label>
+  <p id="lobbyErr" class="err" role="alert"></p>
+  <div class="row"><button id="join">Join room</button><button id="logout" class="ghost">Sign out</button></div>
+</main>
+
+<div id="call" hidden>
+  <section id="grid" aria-label="Participants"></section>
+  <aside id="side">
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tabBoard" aria-selected="true">Whiteboard</button>
+      <button role="tab" id="tabFiles" aria-selected="false">Files</button>
+    </div>
+    <div id="paneBoard">
+      <canvas id="board" width="1200" height="800"></canvas>
+      <div class="row tools">
+        <input type="color" id="color" value="#11262d" aria-label="Pen colour">
+        <input type="range" id="size" min="1" max="20" value="3" aria-label="Pen size">
+        <button id="eraser" class="ghost">Eraser</button>
+        <button id="clear" class="ghost">Clear board</button>
+      </div>
+    </div>
+    <div id="paneFiles" hidden>
+      <label class="upload">Share a file (25 MB max) <input type="file" id="file"></label>
+      <p id="fileErr" class="err" role="alert"></p>
+      <ul id="fileList"></ul>
+    </div>
+  </aside>
+  <nav id="bar" aria-label="Call controls">
+    <button id="mic">Mute</button>
+    <button id="cam">Camera off</button>
+    <button id="share">Share screen</button>
+    <button id="copy" class="ghost">Copy invite link</button>
+    <button id="leave" class="danger">Leave</button>
+  </nav>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

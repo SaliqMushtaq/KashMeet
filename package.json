@@ -1,0 +1,17 @@
+{
+  "name": "keashur-meet",
+  "version": "1.0.0",
+  "description": "Video conferencing + collaboration: WebRTC, Socket.io, JWT auth, whiteboard, file sharing",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.0",
+    "socket.io": "^4.7.5"
+  }
+}
